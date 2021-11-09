@@ -36,13 +36,13 @@ public class DriveTeleOp extends LinearOpMode {
             turnPower = this.gamepad1.right_stick_x;
 
             // Prioritize forward over turning
-            if (forwardPower < deadzone && forwardPower > -deadzone) {
+            if (forwardPower < -deadzone || forwardPower > deadzone) {
                 for (DcMotor motor : all) {
                     motor.setPower(forwardPower);
                 }
 
                 telemetry.addData("Movement", "Forward");
-            } else if (turnPower < deadzone && turnPower > -deadzone) {
+            } else if (turnPower < -deadzone || turnPower > deadzone) {
                 if (turnPower < 0) {
                     // Left
                     for (DcMotor motor : left) {
