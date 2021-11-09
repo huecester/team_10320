@@ -30,7 +30,7 @@ public class DriveTeleOp extends LinearOpMode {
 
         double forwardPower;
         double turnPower;
-        double deadzone = 0.1;
+        double final deadzone = 0.1;
         while (opModeIsActive()) {
             forwardPower = -this.gamepad1.left_stick_y;
             turnPower = this.gamepad1.right_stick_x;
