@@ -3,13 +3,13 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
- * Abstract class for a wheel on the robot.
+ * Class representing a wheel on the drive train.
  */
 public class Wheel {
 	// Fields
 	private final DcMotor motor;
 
-	private boolean invertForward = false;
+	private boolean invertMovement = false;
 	private boolean invertTurning = false;
 
 	// Constructors
@@ -25,31 +25,24 @@ public class Wheel {
 	/**
 	 * Wheel constructor with inversion parameters.
 	 *
-	 * @param motor         Motor used to power the wheel.
-	 * @param invertForward Set to true to invert forward and backward.
-	 * @param invertTurning Set to true to invert turning direction.
+	 * @param motor          Motor used to power the wheel.
+	 * @param invertMovement Set to true to invert forward and backward.
+	 * @param invertTurning  Set to true to invert turning direction.
 	 */
-	public Wheel(DcMotor motor, boolean invertForward, boolean invertTurning) {
+	public Wheel(DcMotor motor, boolean invertMovement, boolean invertTurning) {
 		this.motor = motor;
-		this.invertForward = invertForward;
+		this.invertMovement = invertMovement;
 		this.invertTurning = invertTurning;
 	}
 
 	// Methods
 	/**
-	 * Turn the wheel forward.
-	 * @param speed Speed to set the motor to.
+	 * Move the wheel forwards or backwards.
+	 *
+	 * @param speed Speed to set the motor to. Depending on the state of invertForward, the wheel will turn forwards or backwards based on the sign of the value.
 	 */
-	public void forward(double speed) {
-		this.motor.setPower((this.invertForward) ? -speed : speed);
-	}
-
-	/**
-	 * Turn the wheel backward.
-	 * @param speed Speed to set the motor to.
-	 */
-	public void backward(double speed) {
-		this.motor.setPower((this.invertForward) ? speed : -speed);
+	public void move(double speed) {
+		this.motor.setPower((!this.invertMovement) ? speed : -speed);
 	}
 
 	/**

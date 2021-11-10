@@ -6,20 +6,24 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp
 public class DriveTeleOp extends LinearOpMode {
-	private DcMotor frontLeft;
-	private DcMotor middleLeft;
-	private DcMotor backLeft;
-	private DcMotor frontRight;
-	private DcMotor middleRight;
-	private DcMotor backRight;
+	// Physical parts
+	// TODO add motors
+	private DcMotor[] motors = new DcMotor[6];
 
-	private final DcMotor[] front = { frontRight, frontLeft };
-	private final DcMotor[] right = { frontRight, middleRight, backRight };
-	private final DcMotor[] left = { frontLeft, middleLeft, backLeft };
-	private final DcMotor[] all = { frontRight, middleRight, backRight, frontLeft, middleLeft, backLeft };
+	// Abstractions
+	private Wheel[] wheels = new Wheel[6];
+	private DriveTrain driveTrain;
+	private Robot robot;
 
 	@Override
 	public void runOpMode() {
+		// Init
+		for (int i = 0; i < 6; i++) {
+			this.wheels[i] = new Wheel(this.motors[i]);
+		}
+		this.driveTrain = new MekanimOmniDriveTrain(this.wheels);
+		this.robot = new Robot(this.driveTrain);
+
 		telemetry.addData("Status", "Initialized");
 		telemetry.update();
 
@@ -39,38 +43,15 @@ public class DriveTeleOp extends LinearOpMode {
 			// Movement
 			if (forwardPower < -deadzone || forwardPower > deadzone) {
 				// Prioritize forward over turning
-				for (DcMotor motor : all) {
-					motor.setPower(forwardPower);
-				}
-
+				this.robot.driveTrain.move(forwardPower);
 				telemetry.addData("Movement", "Forward");
 			} else if (turnPower < -deadzone || turnPower > deadzone) {
 				// Turn if not going forward
-				if (turnPower < 0) {
-					// Left
-					for (DcMotor motor : left) {
-						motor.setPower(0);
-					}
-					for (DcMotor motor : right) {
-						motor.setPower(turnPower);
-					}
-				} else {
-					// Right
-					for (DcMotor motor : left) {
-						motor.setPower(turnPower);
-					}
-					for (DcMotor motor : right) {
-						motor.setPower(0);
-					}
-				}
-
+				this.robot.driveTrain.turn(turnPower);
 				telemetry.addData("Movement", "Turning");
 			} else {
 				// Idle if not going forward or turning
-				for (DcMotor motor : all) {
-					motor.setPower(0);
-				}
-
+				this.robot.driveTrain.stop();
 				telemetry.addData("Movement", "Idle");
 			}
 
