@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Abstract class for a wheel on the robot.
  */
-public abstract class Wheel {
+public class Wheel {
 	// Fields
 	private final DcMotor motor;
 
