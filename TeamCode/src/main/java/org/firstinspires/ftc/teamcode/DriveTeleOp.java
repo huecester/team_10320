@@ -11,7 +11,7 @@ public class DriveTeleOp extends LinearOpMode {
 	private DcMotor[] motors = new DcMotor[6];
 
 	// Abstractions
-	private Wheel[] wheels = new Wheel[6];
+	private Motor[] wheels = new Motor[6];
 	private DriveTrain driveTrain;
 	private Robot robot;
 
@@ -19,7 +19,7 @@ public class DriveTeleOp extends LinearOpMode {
 	public void runOpMode() {
 		// Init
 		for (int i = 0; i < 6; i++) {
-			this.wheels[i] = new Wheel(this.motors[i]);
+			this.wheels[i] = new Motor(this.motors[i]);
 		}
 		this.driveTrain = new MekanimOmniDriveTrain(this.wheels);
 		this.robot = new Robot(this.driveTrain);

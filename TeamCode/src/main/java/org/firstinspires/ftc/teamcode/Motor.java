@@ -3,36 +3,33 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
- * Class representing a wheel on the drive train.
+ * Class representing a motor on the robot.
  */
-public class Wheel {
+public class Motor {
 	// Fields
 	private final DcMotor motor;
 
 	private boolean invertMovement = false;
-	private boolean invertTurning = false;
 
 	// Constructors
 	/**
-	 * Basic wheel constructor.
+	 * Basic motor constructor.
 	 *
-	 * @param motor Motor used to power the wheel.
+	 * @param motor DcMotor.
 	 */
-	public Wheel(DcMotor motor) {
+	public Motor(DcMotor motor) {
 		this.motor = motor;
 	}
 
 	/**
-	 * Wheel constructor with inversion parameters.
+	 * Motor constructor with inversion parameters.
 	 *
-	 * @param motor          Motor used to power the wheel.
+	 * @param motor          DcMotor.
 	 * @param invertMovement Set to true to invert forward and backward.
-	 * @param invertTurning  Set to true to invert turning direction.
 	 */
-	public Wheel(DcMotor motor, boolean invertMovement, boolean invertTurning) {
+	public Motor(DcMotor motor, boolean invertMovement, boolean invertTurning) {
 		this.motor = motor;
 		this.invertMovement = invertMovement;
-		this.invertTurning = invertTurning;
 	}
 
 	// Methods
