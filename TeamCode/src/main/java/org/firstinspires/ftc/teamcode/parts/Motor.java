@@ -20,12 +20,12 @@ public class Motor {
 	}
 
 	/**
-	 * Motor constructor with inversion parameters.
+	 * Motor constructor with inversion.
 	 *
 	 * @param motor          DcMotor.
 	 * @param invertMovement Set to true to invert forward and backward.
 	 */
-	public Motor(DcMotor motor, boolean invertMovement, boolean invertTurning) {
+	public Motor(DcMotor motor, boolean invertMovement) {
 		this.motor = motor;
 		this.invertMovement = invertMovement;
 	}
