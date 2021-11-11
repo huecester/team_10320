@@ -49,20 +49,26 @@ public class DriveTeleOp extends LinearOpMode {
 		telemetry.update();
 
 		double forwardPower;
+		double slidePower;
 		double turnPower;
 		final double deadzone = 0.1;
 		while (opModeIsActive()) {
 			// Get input
 			forwardPower = -this.gamepad1.left_stick_y;
+			slidePower = this.gamepad1.left_stick_x;
 			turnPower = this.gamepad1.right_stick_x;
 
 			// Movement
 			if (forwardPower < -deadzone || forwardPower > deadzone) {
-				// Prioritize forward over turning
+				// Forward
 				this.robot.driveTrain.move(forwardPower);
 				telemetry.addData("Movement", "Forward");
+			} else if (slidePower < -deadzone || slidePower > deadzone) {
+				// Slide
+				this.robot.driveTrain.slide(slidePower);
+				telemetry.addData("Movement", "Sliding");
 			} else if (turnPower < -deadzone || turnPower > deadzone) {
-				// Turn if not going forward
+				// turn
 				this.robot.driveTrain.turn(turnPower);
 				telemetry.addData("Movement", "Turning");
 			} else {

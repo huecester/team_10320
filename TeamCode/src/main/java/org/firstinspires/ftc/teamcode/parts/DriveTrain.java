@@ -5,6 +5,7 @@ package org.firstinspires.ftc.teamcode.parts;
  */
 public interface DriveTrain {
 	void move(double speed);
+	void slide(double speed);
 	void turn(double speed);
 	void stop();
 }

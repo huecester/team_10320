@@ -62,7 +62,7 @@ public class HybridDriveTrain implements DriveTrain {
 	/**
 	 * Move the drive train forwards or backwards.
 	 *
-	 * @param speed Speed to set the wheels to. Positive values move the drive train forwards, while negative values move the drive train backwards.
+	 * @param speed Speed to set the wheels to. Positive values move the drive train forwards, and vice versa.
 	 */
 	public void move(double speed) {
 		for (Motor wheel : this.allWheels) {
@@ -71,9 +71,22 @@ public class HybridDriveTrain implements DriveTrain {
 	}
 
 	/**
+	 * Slide the drive train left or right.
+	 *
+	 * @param speed Speed to set the wheels to. Positive values slide the drive train right, and vice versa.
+	 */
+	public void slide(double speed) {
+		frontLeft.move(speed);
+		backRight.move(speed);
+
+		frontRight.move(-speed);
+		backLeft.move(-speed);
+	}
+
+	/**
 	 * Turn the drive train.
 	 *
-	 * @param speed Speed to set the wheels to. Positive values turn the drive train right, while negative values turn the drive train left.
+	 * @param speed Speed to set the wheels to. Positive values turn the drive train right, and vice versa.
 	 */
 	public void turn(double speed) {
 		for (Motor wheel : this.rightWheels) {
