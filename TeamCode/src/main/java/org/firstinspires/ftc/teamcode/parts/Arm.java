@@ -1,12 +1,13 @@
 package org.firstinspires.ftc.teamcode.parts;
 
+/** Class representing an arm on the robot. */
 public class Arm {
-	// Left motor as if looking from the back
-	private Motor left;
-	private Motor right;
+	// Left motor as if looking from the back, same with right
+	private final Motor left;
+	private final Motor right;
 
 	// Motor set
-	private Motor[] all;
+	private final Motor[] all;
 
 	/**
 	 * Arm constructor.
@@ -19,8 +20,8 @@ public class Arm {
 		this.right = right;
 
 		this.all = new Motor[] {
-				this.left,
-				this.right,
+			this.left,
+			this.right,
 		};
 	}
 

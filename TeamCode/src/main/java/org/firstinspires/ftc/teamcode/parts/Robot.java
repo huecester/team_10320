@@ -1,18 +1,12 @@
 package org.firstinspires.ftc.teamcode.parts;
 
-/**
- * Class representing the robot.
- */
+/** Class representing the robot. */
 public class Robot {
 	// Parts
-	/**
-	 * Robot drive train.
-	 */
+	/** Robot drive train. */
 	public final DriveTrain driveTrain;
 
-	/**
-	 * Robot arm.
-	 */
+	/** Robot arm. */
 	public final Arm arm;
 
 	// Constructor
