@@ -20,7 +20,7 @@ public class HybridDriveTrain implements DriveTrain {
 
 	// Constructor
 	/**
-	 * Constructor for hybrid mekanim-omni drive train.
+	 * Hybrid drive train constructor
 	 *
 	 * @param wheels          An array of 6 wheels, starting from the front left, going to the bottom left, and doing the same with the right side.
 	 * @throws AssertionError Throws if wheels is not of length 6.
