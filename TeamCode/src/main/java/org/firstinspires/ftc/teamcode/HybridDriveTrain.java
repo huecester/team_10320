@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 /**
  * Hybrid mekanim-omni drive train.
  */
-public class MekanimOmniDriveTrain implements DriveTrain {
+public class HybridDriveTrain implements DriveTrain {
 	// Fields
 	// Individual wheels
 	private Motor frontLeft;
@@ -25,7 +25,7 @@ public class MekanimOmniDriveTrain implements DriveTrain {
 	 * @param wheels          An array of 6 wheels, starting from the front left, going to the bottom left, and doing the same with the right side.
 	 * @throws AssertionError Throws if wheels is not of length 6.
 	 */
-	public MekanimOmniDriveTrain(Motor[] wheels) throws AssertionError {
+	public HybridDriveTrain(Motor[] wheels) throws AssertionError {
 		assert wheels.length == 6;
 
 		this.frontLeft = wheels[0];

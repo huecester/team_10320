@@ -21,7 +21,7 @@ public class DriveTeleOp extends LinearOpMode {
 		for (int i = 0; i < 6; i++) {
 			this.wheels[i] = new Motor(this.motors[i]);
 		}
-		this.driveTrain = new MekanimOmniDriveTrain(this.wheels);
+		this.driveTrain = new HybridDriveTrain(this.wheels);
 		this.robot = new Robot(this.driveTrain);
 
 		telemetry.addData("Status", "Initialized");
