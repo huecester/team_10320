@@ -1,6 +1,6 @@
 package org.firstinspires.ftc.teamcode.parts;
 
-/** Interface for a drive train, containing methods that manipulate the drive train.. */
+/** Interface for a drive train, containing methods that manipulate the drive train. */
 public interface DriveTrain {
 	/** Moves the drive train forward and backward. Positive speeds should move te drive train forward, and vice versa. */
 	void move(double speed);
