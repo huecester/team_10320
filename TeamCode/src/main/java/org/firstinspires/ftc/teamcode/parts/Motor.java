@@ -2,9 +2,7 @@ package org.firstinspires.ftc.teamcode.parts;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-/**
- * Class representing a motor on the robot.
- */
+/** Class representing a motor on the robot. */
 public class Motor {
 	// Fields
 	private final DcMotor motor;
@@ -42,9 +40,7 @@ public class Motor {
 		this.motor.setPower((!this.invertMovement) ? speed : -speed);
 	}
 
-	/**
-	 * Stop the wheel.
-	 */
+	/** Stop the wheel. */
 	public void stop() {
 		this.motor.setPower(0);
 	}

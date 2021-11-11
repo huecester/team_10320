@@ -1,8 +1,6 @@
 package org.firstinspires.ftc.teamcode.parts;
 
-/**
- * Hybrid mekanim-omni drive train.
- */
+/** Hybrid mekanim-omni drive train. */
 public class HybridDriveTrain implements DriveTrain {
 	// Fields
 	// Individual wheels
@@ -20,7 +18,7 @@ public class HybridDriveTrain implements DriveTrain {
 
 	// Constructor
 	/**
-	 * Hybrid drive train constructor
+	 * Hybrid drive train constructor.
 	 *
 	 * @param wheels          An array of 6 wheels, starting from the front left, going to the bottom left, and doing the same with the right side.
 	 * @throws AssertionError Throws if wheels is not of length 6.
@@ -37,24 +35,24 @@ public class HybridDriveTrain implements DriveTrain {
 
 		// Create wheel sets
 		this.allWheels = new Motor[] {
-				this.frontLeft,
-				this.middleLeft,
-				this.backLeft,
-				this.frontRight,
-				this.middleRight,
-				this.backRight,
+			this.frontLeft,
+			this.middleLeft,
+			this.backLeft,
+			this.frontRight,
+			this.middleRight,
+			this.backRight,
 		};
 
 		this.leftWheels = new Motor[] {
-				this.frontLeft,
-				this.middleLeft,
-				this.backLeft,
+			this.frontLeft,
+			this.middleLeft,
+			this.backLeft,
 		};
 
 		this.rightWheels = new Motor[] {
-				this.frontRight,
-				this.middleRight,
-				this.backRight,
+			this.frontRight,
+			this.middleRight,
+			this.backRight,
 		};
 	}
 
@@ -97,9 +95,7 @@ public class HybridDriveTrain implements DriveTrain {
 		}
 	}
 
-	/**
-	 * Stop the drive train.
-	 */
+	/** Stop the drive train. */
 	public void stop() {
 		for (Motor wheel : this.allWheels) {
 			wheel.stop();
