@@ -1,14 +1,19 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.parts;
 
 /**
  * Class representing the robot.
  */
 public class Robot {
-	// Fields
+	// Parts
 	/**
-	 * Drive train of the robot.
+	 * Robot drive train.
 	 */
 	public final DriveTrain driveTrain;
+
+	/**
+	 * Robot arm.
+	 */
+	public final Arm arm;
 
 	// Constructor
 	/**
@@ -16,7 +21,8 @@ public class Robot {
 	 *
 	 * @param driveTrain Drive train used in the robot.
 	 */
-	public Robot(DriveTrain driveTrain) {
+	public Robot(DriveTrain driveTrain, Arm arm) {
 		this.driveTrain = driveTrain;
+		this.arm = arm;
 	}
 }
