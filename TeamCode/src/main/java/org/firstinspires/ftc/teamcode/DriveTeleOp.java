@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.parts.Arm;
 import org.firstinspires.ftc.teamcode.parts.DriveTrain;
-import org.firstinspires.ftc.teamcode.parts.HybridDriveTrain;
+import org.firstinspires.ftc.teamcode.parts.MecanumDriveTrain;
 import org.firstinspires.ftc.teamcode.parts.Motor;
 import org.firstinspires.ftc.teamcode.parts.Robot;
 
@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.parts.Robot;
 public class DriveTeleOp extends LinearOpMode {
 	// Physical parts
 	// TODO add motors
-	private DcMotor[] wheelDcMotors = new DcMotor[6];
+	private DcMotor[] wheelDcMotors = new DcMotor[4];
 	private DcMotor[] armDcMotors = new DcMotor[2];
 
 	// Abstractions
@@ -22,7 +22,7 @@ public class DriveTeleOp extends LinearOpMode {
 	private Motor[] armMotors = new Motor[2];
 
 	private DriveTrain driveTrain;
-	private Arm arm;
+	//private Arm arm;
 	private Robot robot;
 
 	@Override
@@ -32,13 +32,13 @@ public class DriveTeleOp extends LinearOpMode {
 		for (int i = 0; i < 6; i++) {
 			this.wheels[i] = new Motor(this.wheelDcMotors[i]);
 		}
-		this.driveTrain = new HybridDriveTrain(this.wheels);
+		this.driveTrain = new MecanumDriveTrain(this.wheels);
 
 		// Arm
-		this.arm = new Arm(armMotors[0], armMotors[1]);
+		//this.arm = new Arm(armMotors[0], armMotors[1]);
 
 		// Robot
-		this.robot = new Robot(this.driveTrain, this.arm);
+		this.robot = new Robot(this.driveTrain);//, this.arm);
 
 		telemetry.addData("Status", "Initialized");
 		telemetry.update();

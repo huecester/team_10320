@@ -7,13 +7,24 @@ public class Robot {
 	public final DriveTrain driveTrain;
 
 	/** Robot arm. */
-	public final Arm arm;
+	public Arm arm = null;
 
-	// Constructor
+	// Constructors
+
 	/**
-	 * Robot constructor.
+	 * Basic robot constructor.
+	 *
+	 * @param driveTrain Drive train uesd in the robot.
+	 */
+	public Robot(DriveTrain driveTrain) {
+		this.driveTrain = driveTrain;
+	}
+
+	/**
+	 * Robot constructor with arm.
 	 *
 	 * @param driveTrain Drive train used in the robot.
+	 * @param arm        Arm used in the robot.
 	 */
 	public Robot(DriveTrain driveTrain, Arm arm) {
 		this.driveTrain = driveTrain;
