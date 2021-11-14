@@ -4,7 +4,6 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.parts.Arm;
 import org.firstinspires.ftc.teamcode.parts.DriveTrain;
 import org.firstinspires.ftc.teamcode.parts.MecanumDriveTrain;
 import org.firstinspires.ftc.teamcode.parts.Motor;
@@ -15,11 +14,11 @@ public class DriveTeleOp extends LinearOpMode {
 	// Physical parts
 	// TODO add motors
 	private DcMotor[] wheelDcMotors = new DcMotor[4];
-	private DcMotor[] armDcMotors = new DcMotor[2];
+	//private DcMotor[] armDcMotors = new DcMotor[2];
 
 	// Abstractions
 	private Motor[] wheels = new Motor[6];
-	private Motor[] armMotors = new Motor[2];
+	//private Motor[] armMotors = new Motor[2];
 
 	private DriveTrain driveTrain;
 	//private Arm arm;
@@ -28,6 +27,12 @@ public class DriveTeleOp extends LinearOpMode {
 	@Override
 	public void runOpMode() {
 		// Init
+		// Motors
+		wheelDcMotors[0] = hardwareMap.get(DcMotor.class, "frontLeft");
+		wheelDcMotors[1] = hardwareMap.get(DcMotor.class, "backLeft");
+		wheelDcMotors[2] = hardwareMap.get(DcMotor.class, "frontRight");
+		wheelDcMotors[3] = hardwareMap.get(DcMotor.class, "backRight");
+
 		// Drive train
 		for (int i = 0; i < 6; i++) {
 			this.wheels[i] = new Motor(this.wheelDcMotors[i]);
