@@ -1,14 +1,12 @@
 package org.firstinspires.ftc.teamcode.parts;
 
-/** Hybrid mecanum-omni drive train. */
-public class HybridDriveTrain implements DriveTrain {
+/** Mecanum-only drive train. */
+public class MecanumDriveTrain implements DriveTrain {
 	// Fields
 	// Individual wheels
 	private Motor frontLeft;
-	private Motor middleLeft;
 	private Motor backLeft;
 	private Motor frontRight;
-	private Motor middleRight;
 	private Motor backRight;
 
 	// Motor sets
@@ -18,40 +16,34 @@ public class HybridDriveTrain implements DriveTrain {
 
 	// Constructor
 	/**
-	 * Hybrid drive train constructor.
+	 * Mecanum-only drive train constructor.
 	 *
-	 * @param wheels          An array of 6 wheels, starting from the front left, going to the bottom left, and doing the same with the right side.
-	 * @throws AssertionError Throws if wheels is not of length 6.
+	 * @param wheels          An array of 4 wheels, starting from the front left, going to the bottom left, and doing the same with the right side.
+	 * @throws AssertionError Throws if wheels is not of length 4.
 	 */
-	public HybridDriveTrain(Motor[] wheels) throws AssertionError {
-		assert wheels.length == 6;
+	public MecanumDriveTrain(Motor[] wheels) throws AssertionError {
+		assert wheels.length == 4;
 
 		this.frontLeft = wheels[0];
-		this.middleLeft = wheels[1];
-		this.backLeft = wheels[2];
-		this.frontRight = wheels[3];
-		this.middleRight = wheels[4];
-		this.backRight = wheels[5];
+		this.backLeft = wheels[1];
+		this.frontRight = wheels[2];
+		this.backRight = wheels[3];
 
 		// Create wheel sets
 		this.allWheels = new Motor[] {
 			this.frontLeft,
-			this.middleLeft,
 			this.backLeft,
 			this.frontRight,
-			this.middleRight,
 			this.backRight,
 		};
 
 		this.leftWheels = new Motor[] {
 			this.frontLeft,
-			this.middleLeft,
 			this.backLeft,
 		};
 
 		this.rightWheels = new Motor[] {
 			this.frontRight,
-			this.middleRight,
 			this.backRight,
 		};
 	}
