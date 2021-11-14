@@ -34,7 +34,7 @@ public class DriveTeleOp extends LinearOpMode {
 		wheelDcMotors[3] = hardwareMap.get(DcMotor.class, "backRight");
 
 		// Drive train
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < this.wheelDcMotors.length; i++) {
 			this.wheels[i] = new Motor(this.wheelDcMotors[i]);
 		}
 		this.driveTrain = new MecanumDriveTrain(this.wheels);
