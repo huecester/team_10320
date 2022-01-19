@@ -28,15 +28,6 @@ public class ManualTeleOp extends LinearOpMode {
 		frontRight = hardwareMap.get(DcMotor.class, "frontRight");
 		backRight = hardwareMap.get(DcMotor.class, "backRight");
 
-		leftSlide = hardwareMap.get(DcMotor.class, "leftSlide");
-		rightSlide = hardwareMap.get(DcMotor.class, "rightSlide");
-		leftScoop = hardwareMap.get(Servo.class, "leftScoop");
-		rightScoop = hardwareMap.get(Servo.class, "rightScoop");
-
-		// TODO maybe change
-		/*leftDrive.setDirection(DcMotor.Direction.FORWARD);
-		rightDrive.setDirection(DcMotor.Direction.REVERSE);*/
-
 		waitForStart();
 
 		while (opModeIsActive()) {
@@ -52,29 +43,6 @@ public class ManualTeleOp extends LinearOpMode {
 			backRight.setPower(rightPower);
 
 			telemetry.addData("Wheels", "left (%.2f), right (%.2f)", leftPower, rightPower);
-
-
-			// slide
-			if (gamepad1.dpad_up) {
-				leftSlide.setPower(1.0);
-				rightSlide.setPower(1.0);
-			} else if (gamepad1.dpad_down) {
-				leftSlide.setPower(-1.0);
-				rightSlide.setPower(-1.0);
-			} else {
-				leftSlide.setPower(0.0);
-				rightSlide.setPower(0.0);
-			}
-
-			// scoop
-			if (gamepad1.right_bumper) {
-				leftScoop.setPosition(0.5);
-				rightScoop.setPosition(0.5);
-			} else {
-				leftScoop.setPosition(0.0);
-				rightScoop.setPosition(0.0);
-			}
-
 			telemetry.update();
 		}
 	}
