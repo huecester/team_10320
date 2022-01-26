@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import java.util.prefs.BackingStoreException;
+
 public class OperatorController {
 	/*
 	C2 - Slide/scoop operator:
@@ -71,7 +73,18 @@ public class OperatorController {
 		}
 	}
 
-	private void scoop() {}
+	private void scoop() {
+		if (scoopDirection == ScoopDirection.FORWARD) {
+			telemetry.addData("Scoop Status", "Forward");
+			scoop.setPower(scoopPower);
+		} else if (scoopDirection == ScoopDirection.REVERSE) {
+			telemetry.addData("Scoop Status", "Reverse");
+			scoop.setPower(-scoopPower);
+		} else {
+			telemetry.addData("Scoop Status", "Stopped");
+			scoop.setPower(0);
+		}
+	}
 
 	// Helpers
 	private void parseController() {}

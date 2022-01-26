@@ -83,10 +83,11 @@ public class ManualTeleOp extends LinearOpMode {
 			// motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 		}
 
-		// Slide stops on zero power
+		// Slide and scoop stop on zero power
 		for (DcMotor motor : slide) {
 			motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 		}
+		scoop.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 	}
 
 	// Helpers
