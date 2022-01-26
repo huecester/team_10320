@@ -46,10 +46,31 @@ public class OperatorController {
 	// Methods
 	public void tick() {
 		parseController();
+
+		slide();
+		scoop();
 	}
 
 	// Operating
-	private void slide() {}
+	private void slide() {
+		if (linearSlideDirection == LinearSlideDirection.UP) {
+			telemetry.addData("Linear Slide Status", "Up");
+			for (DcMotor motor : slide) {
+				motor.setPower(slidePower);
+			}
+		} else if (linearSlideDirection == LinearSlideDirection.DOWN) {
+			telemetry.addData("Linear Slide Status", "Down");
+			for (DcMotor motor : slide) {
+				motor.setPower(-slidePower);
+			}
+		} else {
+			telemetry.addData("Linear Slide Status", "Stopped");
+			for (DcMotor motor : slide) {
+				motor.setPower(0);
+			}
+		}
+	}
+
 	private void scoop() {}
 
 	// Helpers
