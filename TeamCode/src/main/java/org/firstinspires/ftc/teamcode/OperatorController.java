@@ -10,6 +10,9 @@ public class OperatorController {
 		- scoop: left stick, up forward / down backward
 	*/
 
+	// Config
+	public static double deadzone = 0.1;
+
 	// Fields
 	private Gamepad gamepad;
 	private DcMotor[] slide;
