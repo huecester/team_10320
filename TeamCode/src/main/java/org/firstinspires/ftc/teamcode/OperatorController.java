@@ -12,14 +12,19 @@ public class OperatorController {
 		- scoop: left stick, up forward / down backward
 	*/
 
-	// Config
+	// Configuration
 	public static double deadzone = 0.1;
+	public static double slidePower = 1;
+	public static double scoopPower = 0.5;
 
-	// Fields
+	// References
 	private final Gamepad gamepad;
 	private final Telemetry telemetry;
 	private final DcMotor[] slide;
 	private final DcMotor scoop;
+	// Fields
+	private LinearSlideDirection linearSlideDirection;
+	private ScoopDirection scoopDirection;
 
 	// Singleton parts
 	private static OperatorController instance;
@@ -39,5 +44,14 @@ public class OperatorController {
 	}
 
 	// Methods
-	public void tick() {}
+	public void tick() {
+		parseController();
+	}
+
+	// Operating
+	private void slide() {}
+	private void scoop() {}
+
+	// Helpers
+	private void parseController() {}
 }
