@@ -128,7 +128,11 @@ public class DriverController {
 		}
 	}
 
-	private void zero() {}
+	private void zero() {
+		for (DcMotor motor : driveTrain) {
+			motor.setPower(0);
+		}
+	}
 
 	// Helpers
 	private void parseController() {
