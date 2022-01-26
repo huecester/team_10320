@@ -25,6 +25,10 @@ public class ManualTeleOp extends LinearOpMode {
 	private DcMotor scoop;
 	private DcMotor[] slide = { slideLeft, slideRight };
 
+	// Controllers
+	private DriverController driverController;
+	private OperatorController operatorController;
+
 	/*
 	TODO:
 	- fine tune button
@@ -40,16 +44,20 @@ public class ManualTeleOp extends LinearOpMode {
 		// Configuration
 		configureDriveTrain();
 
+		// Initialize controllers
+		driverController = DriverController.getInstance(gamepad1, driveTrain);
+		operatorController = OperatorController.getInstance(gamepad2, slide, scoop);
+
 		telemetry.addData("Status", "Initialized");
 		telemetry.update();
 
 		waitForStart();
 
 		while (opModeIsActive()) {
-			parseController1();
-			parseController2();
+			driverController.tick();
+			operatorController.tick();
 
-			telemetry.addData("Wheels", "left (%.2f), right (%.2f)", 1, 1);
+			//telemetry.addData("Wheels", "left (%.2f), right (%.2f)", 1, 1);
 			telemetry.update();
 		}
 	}
@@ -74,24 +82,5 @@ public class ManualTeleOp extends LinearOpMode {
 			motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 			// motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 		}
-	}
-
-	// Controller 1 - Driver
-	private void parseController1() {
-		/*
-		C1 - Driver:
-			- if either analog stick is past deadzone, tank driving
-			- else if dpad is down, slide
-			- else, zero drive train
-		 */
-	}
-
-	// Controller 2 - Operator
-	private void parseController2() {
-		/*
-		C2 - Slide/scoop operator:
-			- slide: triggers, right up / left down
-			- scoop: left stick, up forward / down backward
-		*/
 	}
 }
