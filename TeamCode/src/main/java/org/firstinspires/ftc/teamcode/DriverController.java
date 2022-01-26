@@ -15,6 +15,7 @@ public class DriverController {
 
 	// Configuration
 	public static double deadzone = 0.1;
+	public static double slidePower = 1;
 
 	// References
 	private Gamepad gamepad;
@@ -73,10 +74,63 @@ public class DriverController {
 		}
 	}
 
-	private void slide() {}
+	private void slide() {
+		SlideDirection direction = parseDirection();
+		if (direction == null) return;
+
+		switch (direction) {
+			case UP_RIGHT:
+				driveTrain[0].setPower(slidePower);
+				driveTrain[1].setPower(0);
+				driveTrain[2].setPower(0);
+				driveTrain[3].setPower(slidePower);
+				break;
+			case DOWN_RIGHT:
+				driveTrain[0].setPower(0);
+				driveTrain[1].setPower(-slidePower);
+				driveTrain[2].setPower(-slidePower);
+				driveTrain[3].setPower(0);
+				break;
+			case UP_LEFT:
+				driveTrain[0].setPower(0);
+				driveTrain[1].setPower(slidePower);
+				driveTrain[2].setPower(slidePower);
+				driveTrain[3].setPower(0);
+				break;
+			case DOWN_LEFT:
+				driveTrain[0].setPower(-slidePower);
+				driveTrain[1].setPower(0);
+				driveTrain[2].setPower(0);
+				driveTrain[3].setPower(-slidePower);
+				break;
+			case UP:
+				for (DcMotor motor : driveTrain) {
+					motor.setPower(slidePower);
+				}
+				break;
+			case RIGHT:
+				driveTrain[0].setPower(slidePower);
+				driveTrain[1].setPower(-slidePower);
+				driveTrain[2].setPower(-slidePower);
+				driveTrain[3].setPower(slidePower);
+				break;
+			case DOWN:
+				for (DcMotor motor : driveTrain) {
+					motor.setPower(-slidePower);
+				}
+				break;
+			case LEFT:
+				driveTrain[0].setPower(-slidePower);
+				driveTrain[1].setPower(slidePower);
+				driveTrain[2].setPower(slidePower);
+				driveTrain[3].setPower(-slidePower);
+				break;
+		}
+	}
+
 	private void zero() {}
 
-	// Controller parsing
+	// Helpers
 	private void parseController() {
 		drivePower = -gamepad.left_stick_y;
 		turnPower = gamepad.right_stick_x;
@@ -85,5 +139,27 @@ public class DriverController {
 		slideLeft = gamepad.dpad_left;
 		slideRight = gamepad.right_bumper;
 		dpadPressed = slideUp || slideDown || slideLeft || slideRight;
+	}
+
+	private SlideDirection parseDirection() {
+		if (slideUp && slideRight) {
+			return SlideDirection.UP_RIGHT;
+		} else if (slideDown && slideRight) {
+			return SlideDirection.DOWN_RIGHT;
+		} else if (slideUp && slideLeft) {
+			return SlideDirection.UP_LEFT;
+		} else if (slideDown && slideLeft) {
+			return SlideDirection.DOWN_LEFT;
+		} else if (slideUp) {
+			return SlideDirection.UP;
+		} else if (slideRight) {
+			return SlideDirection.RIGHT;
+		} else if (slideDown) {
+			return SlideDirection.DOWN;
+		} else if (slideLeft) {
+			return SlideDirection.LEFT;
+		} else {
+			return null;
+		}
 	}
 }
