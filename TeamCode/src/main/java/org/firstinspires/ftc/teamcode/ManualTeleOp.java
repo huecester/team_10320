@@ -45,8 +45,8 @@ public class ManualTeleOp extends LinearOpMode {
 		configureDriveTrain();
 
 		// Initialize controllers
-		driverController = DriverController.getInstance(gamepad1, driveTrain);
-		operatorController = OperatorController.getInstance(gamepad2, slide, scoop);
+		driverController = DriverController.getInstance(gamepad1, telemetry, driveTrain);
+		operatorController = OperatorController.getInstance(gamepad2, telemetry, slide, scoop);
 
 		telemetry.addData("Status", "Initialized");
 		telemetry.update();

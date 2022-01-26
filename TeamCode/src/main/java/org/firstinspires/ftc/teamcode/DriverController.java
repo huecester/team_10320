@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Gamepad;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 public class DriverController {
 	/*
 	C1 - Driver:
@@ -19,6 +21,7 @@ public class DriverController {
 
 	// References
 	private final Gamepad gamepad;
+	private final Telemetry telemetry;
 	private final DcMotor[] driveTrain;
 	// Fields
 	private double drivePower;
@@ -31,16 +34,17 @@ public class DriverController {
 
 	// Singleton parts
 	private static DriverController instance;
-	public static DriverController getInstance(Gamepad gamepad, DcMotor[] driveTrain) {
+	public static DriverController getInstance(Gamepad gamepad, Telemetry telemetry, DcMotor[] driveTrain) {
 		if (instance == null) {
-			instance = new DriverController(gamepad, driveTrain);
+			instance = new DriverController(gamepad, telemetry, driveTrain);
 		}
 		return instance;
 	}
 
 	// Constructor
-	private DriverController(Gamepad gamepad, DcMotor[] driveTrain) {
+	private DriverController(Gamepad gamepad, Telemetry telemetry, DcMotor[] driveTrain) {
 		this.gamepad = gamepad;
+		this.telemetry = telemetry;
 		this.driveTrain = driveTrain;
 	}
 
@@ -49,10 +53,13 @@ public class DriverController {
 		parseController();
 
 		if (Math.abs(drivePower) >= deadzone || Math.abs(turnPower) >= deadzone) {
+			telemetry.addData("Driver Status", "Driving");
 			tankDrive();
 		} else if (dpadPressed) {
+			telemetry.addData("Driver Status", "Sliding");
 			slide();
 		} else {
+			telemetry.addData("Driver Status", "Stopped");
 			zero();
 		}
 	}
