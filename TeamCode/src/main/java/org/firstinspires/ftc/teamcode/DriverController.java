@@ -7,7 +7,9 @@ public class DriverController {
 	/*
 	C1 - Driver:
 		- if either analog stick is past deadzone, tank driving
+			- priority to forwards/backwards
 		- else if dpad is down, slide
+			- priority to diagonals
 		- else, zero drive train
 	 */
 
@@ -55,7 +57,22 @@ public class DriverController {
 	}
 
 	// Driving
-	private void tankDrive() {}
+	private void tankDrive() {
+		if (Math.abs(drivePower) >= deadzone) {
+			for (DcMotor motor : driveTrain) {
+				motor.setPower(drivePower);
+			}
+		} else {
+			// Left motors
+			driveTrain[0].setPower(turnPower);
+			driveTrain[1].setPower(turnPower);
+
+			// Right motors
+			driveTrain[2].setPower(-turnPower);
+			driveTrain[3].setPower(-turnPower);
+		}
+	}
+
 	private void slide() {}
 	private void zero() {}
 
