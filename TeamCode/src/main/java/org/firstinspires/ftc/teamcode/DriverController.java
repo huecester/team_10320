@@ -18,8 +18,8 @@ public class DriverController {
 	public static double slidePower = 1;
 
 	// References
-	private Gamepad gamepad;
-	private DcMotor[] driveTrain;
+	private final Gamepad gamepad;
+	private final DcMotor[] driveTrain;
 	// Fields
 	private double drivePower;
 	private double turnPower;

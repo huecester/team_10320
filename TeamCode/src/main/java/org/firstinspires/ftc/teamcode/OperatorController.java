@@ -14,9 +14,9 @@ public class OperatorController {
 	public static double deadzone = 0.1;
 
 	// Fields
-	private Gamepad gamepad;
-	private DcMotor[] slide;
-	private DcMotor scoop;
+	private final Gamepad gamepad;
+	private final DcMotor[] slide;
+	private final DcMotor scoop;
 
 	// Singleton parts
 	private static OperatorController instance;
