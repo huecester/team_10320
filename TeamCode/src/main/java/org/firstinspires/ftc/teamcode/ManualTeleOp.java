@@ -3,72 +3,95 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp
 public class ManualTeleOp extends LinearOpMode {
+	// Configuration
+	private final double stickThreshold = 0.1;
+
+	// Drive train
 	private DcMotor frontLeft;
 	private DcMotor backLeft;
 	private DcMotor frontRight;
 	private DcMotor backRight;
+	private DcMotor[] driveTrain = { frontLeft, backLeft, frontRight, backRight };
 
-	private DcMotor leftSlide;
-	private DcMotor rightSlide;
-	private Servo leftScoop;
-	private Servo rightScoop;
+	// Linear slide / scoop
+	private DcMotor slideLeft;
+	private DcMotor slideRight;
+	private DcMotor scoop;
+	private DcMotor[] slide = { slideLeft, slideRight };
+
+	/*
+	TODO:
+	- fine tune button
+	- braking
+	- carousel? by driver
+	 */
 
 	@Override
 	public void runOpMode() {
+		// Hardware mapping
+		mapHardware();
+
+		// Configuration
+		configureDriveTrain();
+
 		telemetry.addData("Status", "Initialized");
 		telemetry.update();
-
-		frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-		backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-		frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-		backRight = hardwareMap.get(DcMotor.class, "backRight");
 
 		waitForStart();
 
 		while (opModeIsActive()) {
-			// parameters
-			final double threshold = 0.05;
+			parseController1();
+			parseController2();
 
-			// `turning/forward
-			double drive = -gamepad1.left_stick_y;
-			double turn = gamepad1.right_stick_x;
-			double leftPower = Range.clip(drive + turn, -1.0, 1.0);
-			double rightPower = Range.clip(drive - turn, -1.0, 1.0);
-
-			// sliding
-			boolean leftSlide = gamepad1.dpad_left;
-			boolean rightSlide = gamepad1.dpad_right;
-
-			if (Math.abs(drive) >= threshold || Math.abs(turn) >= threshold) {
-				frontLeft.setPower(leftPower);
-				backLeft.setPower(leftPower);
-				frontRight.setPower(rightPower);
-				backRight.setPower(rightPower);
-			} else if (leftSlide) {
-				frontLeft.setPower(1);
-				backLeft.setPower(-1);
-				frontRight.setPower(-1);
-				backRight.setPower(1);
-			} else if (rightSlide) {
-				frontLeft.setPower(-1);
-				backLeft.setPower(1);
-				frontRight.setPower(1);
-				backRight.setPower(-1);
-			} else {
-				frontLeft.setPower(0);
-				backLeft.setPower(0);
-				frontRight.setPower(0);
-				backRight.setPower(0);
-			}
-
-
-			telemetry.addData("Wheels", "left (%.2f), right (%.2f)", leftPower, rightPower);
+			telemetry.addData("Wheels", "left (%.2f), right (%.2f)", 1, 1);
 			telemetry.update();
 		}
+	}
+
+	// Configuration/initialization
+	private void mapHardware() {
+		frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+		backLeft = hardwareMap.get(DcMotor.class, "backLeft");
+		frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+		backRight = hardwareMap.get(DcMotor.class, "backRight");
+		slideLeft = hardwareMap.get(DcMotor.class, "slideLeft");
+		slideRight = hardwareMap.get(DcMotor.class, "slideRight");
+		scoop = hardwareMap.get(DcMotor.class, "scoop");
+	}
+
+	private void configureDriveTrain() {
+		// Invert motors where needed
+		frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+
+		// Drive train to neutral on zero power
+		for (DcMotor motor : driveTrain) {
+			motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+			// motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+		}
+	}
+
+	// Controller 1 - Driver
+	private void parseController1() {
+		/*
+		C1 - Driver:
+			- if either analog stick is past deadzone, tank driving
+			- else if dpad is down, slide
+			- else, zero drive train
+		 */
+	}
+
+	// Controller 2 - Operator
+	private void parseController2() {
+		/*
+		C2 - Slide/scoop operator:
+			- slide: triggers, right up / left down
+			- scoop: left stick, up forward / down backward
+		*/
 	}
 }
