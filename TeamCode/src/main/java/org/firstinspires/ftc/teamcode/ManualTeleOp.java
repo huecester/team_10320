@@ -17,13 +17,13 @@ public class ManualTeleOp extends LinearOpMode {
 	private DcMotor backLeft;
 	private DcMotor frontRight;
 	private DcMotor backRight;
-	private DcMotor[] driveTrain = { frontLeft, backLeft, frontRight, backRight };
+	private final DcMotor[] driveTrain = { frontLeft, backLeft, frontRight, backRight };
 
 	// Linear slide / scoop
 	private DcMotor slideLeft;
 	private DcMotor slideRight;
 	private DcMotor scoop;
-	private DcMotor[] slide = { slideLeft, slideRight };
+	private final DcMotor[] slide = { slideLeft, slideRight };
 
 	// Controllers
 	private DriverController driverController;
@@ -45,8 +45,8 @@ public class ManualTeleOp extends LinearOpMode {
 		configureDriveTrain();
 
 		// Initialize controllers
-		driverController = DriverController.getInstance(gamepad1, driveTrain);
-		operatorController = OperatorController.getInstance(gamepad2, slide, scoop);
+		driverController = DriverController.getInstance(gamepad1, telemetry, driveTrain);
+		operatorController = OperatorController.getInstance(gamepad2, telemetry, slide, scoop);
 
 		telemetry.addData("Status", "Initialized");
 		telemetry.update();
@@ -64,13 +64,13 @@ public class ManualTeleOp extends LinearOpMode {
 
 	// Configuration/initialization
 	private void mapHardware() {
-		frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-		backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-		frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-		backRight = hardwareMap.get(DcMotor.class, "backRight");
-		slideLeft = hardwareMap.get(DcMotor.class, "slideLeft");
-		slideRight = hardwareMap.get(DcMotor.class, "slideRight");
-		scoop = hardwareMap.get(DcMotor.class, "scoop");
+		frontLeft = getMotor("frontLeft");
+		backLeft = getMotor("backLeft");
+		frontRight = getMotor("frontRight");
+		backRight = getMotor("backRight");
+		slideLeft = getMotor("slideLeft");
+		slideRight = getMotor("slideRight");
+		scoop = getMotor("scoop");
 	}
 
 	private void configureDriveTrain() {
@@ -82,5 +82,16 @@ public class ManualTeleOp extends LinearOpMode {
 			motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 			// motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 		}
+
+		// Slide and scoop stop on zero power
+		for (DcMotor motor : slide) {
+			motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+		}
+		scoop.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+	}
+
+	// Helpers
+	private DcMotor getMotor(String deviceName) {
+		return hardwareMap.get(DcMotor.class, deviceName);
 	}
 }
