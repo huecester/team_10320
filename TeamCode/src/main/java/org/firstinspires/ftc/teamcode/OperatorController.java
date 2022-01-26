@@ -16,8 +16,8 @@ public class OperatorController {
 
 	// Configuration
 	public static double deadzone = 0.1;
+	public static double triggerThreshold = 0.1;
 	public static double slidePower = 1;
-	public static double scoopPower = 0.5;
 
 	// References
 	private final Gamepad gamepad;
@@ -26,7 +26,7 @@ public class OperatorController {
 	private final DcMotor scoop;
 	// Fields
 	private LinearSlideDirection linearSlideDirection;
-	private ScoopDirection scoopDirection;
+	private double scoopPower;
 
 	// Singleton parts
 	private static OperatorController instance;
@@ -74,18 +74,23 @@ public class OperatorController {
 	}
 
 	private void scoop() {
-		if (scoopDirection == ScoopDirection.FORWARD) {
-			telemetry.addData("Scoop Status", "Forward");
-			scoop.setPower(scoopPower);
-		} else if (scoopDirection == ScoopDirection.REVERSE) {
-			telemetry.addData("Scoop Status", "Reverse");
-			scoop.setPower(-scoopPower);
-		} else {
-			telemetry.addData("Scoop Status", "Stopped");
-			scoop.setPower(0);
-		}
+		telemetry.addData("Scoop Power", scoopPower);
+		scoop.setPower(scoopPower);
 	}
 
 	// Helpers
-	private void parseController() {}
+	private void parseController() {
+		linearSlideDirection = parseLinearSlide();
+		scoopPower = -gamepad.left_stick_y;
+	}
+
+	private LinearSlideDirection parseLinearSlide() {
+		if (gamepad.right_bumper || gamepad.right_trigger > triggerThreshold) {
+			return LinearSlideDirection.UP;
+		} else if (gamepad.left_bumper || gamepad.left_trigger > triggerThreshold) {
+			return LinearSlideDirection.DOWN;
+		} else {
+			return null;
+		}
+	}
 }
