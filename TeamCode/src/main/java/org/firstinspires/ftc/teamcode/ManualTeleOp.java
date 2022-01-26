@@ -64,13 +64,13 @@ public class ManualTeleOp extends LinearOpMode {
 
 	// Configuration/initialization
 	private void mapHardware() {
-		frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-		backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-		frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-		backRight = hardwareMap.get(DcMotor.class, "backRight");
-		slideLeft = hardwareMap.get(DcMotor.class, "slideLeft");
-		slideRight = hardwareMap.get(DcMotor.class, "slideRight");
-		scoop = hardwareMap.get(DcMotor.class, "scoop");
+		frontLeft = getMotor("frontLeft");
+		backLeft = getMotor("backLeft");
+		frontRight = getMotor("frontRight");
+		backRight = getMotor("backRight");
+		slideLeft = getMotor("slideLeft");
+		slideRight = getMotor("slideRight");
+		scoop = getMotor("scoop");
 	}
 
 	private void configureDriveTrain() {
@@ -82,5 +82,10 @@ public class ManualTeleOp extends LinearOpMode {
 			motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
 			// motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 		}
+	}
+
+	// Helpers
+	private DcMotor getMotor(String deviceName) {
+		return hardwareMap.get(DcMotor.class, deviceName);
 	}
 }
