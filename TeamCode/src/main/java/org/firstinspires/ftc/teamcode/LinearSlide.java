@@ -13,7 +13,7 @@ public class LinearSlide {
 	private final DcMotor scoop;
 	// Fields
 	private LinearSlideDirection linearSlideDirection;
-	private double scoopPower;
+	private ScoopDirection scoopDirection;
 
 	// Singleton
 	private static LinearSlide instance;
@@ -61,21 +61,39 @@ public class LinearSlide {
 	}
 
 	private void scoop() {
-		telemetry.addData("Scoop Power", scoopPower);
-		scoop.setPower(scoopPower);
+		if (scoopDirection == ScoopDirection.FORWARD) {
+			telemetry.addData("Scoop", "Forward");
+			scoop.setPower(Configuration.scoopPower);
+		} else if (scoopDirection == ScoopDirection.REVERSE) {
+			telemetry.addData("Scoop", "Reverse");
+			scoop.setPower(-Configuration.scoopPower);
+		} else {
+			telemetry.addData("Scoop", "Stopped");
+			scoop.setPower(0);
+		}
 	}
 
 	// Helpers
 	private void parseController() {
 		linearSlideDirection = parseLinearSlide();
-		scoopPower = -gamepad.left_stick_y;
+		scoopDirection = parseScoop();
 	}
 
 	private LinearSlideDirection parseLinearSlide() {
-		if (gamepad.right_bumper || gamepad.right_trigger > Configuration.triggerThreshold) {
+		if (gamepad.right_trigger > Configuration.triggerThreshold) {
 			return LinearSlideDirection.UP;
-		} else if (gamepad.left_bumper || gamepad.left_trigger > Configuration.triggerThreshold) {
+		} else if (gamepad.left_trigger > Configuration.triggerThreshold) {
 			return LinearSlideDirection.DOWN;
+		} else {
+			return null;
+		}
+	}
+
+	private ScoopDirection parseScoop() {
+		if (gamepad.right_bumper) {
+			return ScoopDirection.FORWARD;
+		} else if (gamepad.left_bumper) {
+			return ScoopDirection.REVERSE;
 		} else {
 			return null;
 		}
