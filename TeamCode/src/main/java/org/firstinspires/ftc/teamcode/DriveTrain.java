@@ -5,44 +5,32 @@ import com.qualcomm.robotcore.hardware.Gamepad;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public class DriverController {
-	/*
-	C1 - Driver:
-		- if either analog stick is past deadzone, tank driving
-			- priority to forwards/backwards
-		- else if dpad is down, slide
-			- priority to diagonals
-		- else, zero drive train
-	 */
-
-	// Configuration
-	public static double deadzone = 0.1;
-	public static double slidePower = 1;
-
+public class DriveTrain {
 	// References
 	private final Gamepad gamepad;
-	private final Telemetry telemetry;
+	private final Telemetry.Line telemetry;
 	private final DcMotor[] driveTrain;
 	// Fields
 	private double drivePower;
 	private double turnPower;
+
+	private boolean dpadPressed;
 	private boolean slideUp;
 	private boolean slideDown;
 	private boolean slideLeft;
 	private boolean slideRight;
-	private boolean dpadPressed;
 
-	// Singleton parts
-	private static DriverController instance;
-	public static DriverController getInstance(Gamepad gamepad, Telemetry telemetry, DcMotor[] driveTrain) {
+	// Singleton
+	private static DriveTrain instance;
+	public static DriveTrain getInstance(Gamepad gamepad, Telemetry.Line telemetry, DcMotor[] driveTrain) {
 		if (instance == null) {
-			instance = new DriverController(gamepad, telemetry, driveTrain);
+			instance = new DriveTrain(gamepad, telemetry, driveTrain);
 		}
 		return instance;
 	}
 
 	// Constructor
-	private DriverController(Gamepad gamepad, Telemetry telemetry, DcMotor[] driveTrain) {
+	private DriveTrain(Gamepad gamepad, Telemetry.Line telemetry, DcMotor[] driveTrain) {
 		this.gamepad = gamepad;
 		this.telemetry = telemetry;
 		this.driveTrain = driveTrain;
@@ -52,7 +40,7 @@ public class DriverController {
 	public void tick() {
 		parseController();
 
-		if (Math.abs(drivePower) >= deadzone || Math.abs(turnPower) >= deadzone) {
+		if (Math.abs(drivePower) >= Configuration.deadzone || Math.abs(turnPower) >= Configuration.deadzone) {
 			telemetry.addData("Driver Status", "Driving");
 			tankDrive();
 		} else if (dpadPressed) {
@@ -66,7 +54,7 @@ public class DriverController {
 
 	// Driving
 	private void tankDrive() {
-		if (Math.abs(drivePower) >= deadzone) {
+		if (Math.abs(drivePower) >= Configuration.deadzone) {
 			for (DcMotor motor : driveTrain) {
 				motor.setPower(drivePower);
 			}
@@ -87,50 +75,50 @@ public class DriverController {
 
 		switch (direction) {
 			case UP_RIGHT:
-				driveTrain[0].setPower(slidePower);
+				driveTrain[0].setPower(Configuration.driveTrainSlidePower);
 				driveTrain[1].setPower(0);
 				driveTrain[2].setPower(0);
-				driveTrain[3].setPower(slidePower);
+				driveTrain[3].setPower(Configuration.driveTrainSlidePower);
 				break;
 			case DOWN_RIGHT:
 				driveTrain[0].setPower(0);
-				driveTrain[1].setPower(-slidePower);
-				driveTrain[2].setPower(-slidePower);
+				driveTrain[1].setPower(-Configuration.driveTrainSlidePower);
+				driveTrain[2].setPower(-Configuration.driveTrainSlidePower);
 				driveTrain[3].setPower(0);
 				break;
 			case UP_LEFT:
 				driveTrain[0].setPower(0);
-				driveTrain[1].setPower(slidePower);
-				driveTrain[2].setPower(slidePower);
+				driveTrain[1].setPower(Configuration.driveTrainSlidePower);
+				driveTrain[2].setPower(Configuration.driveTrainSlidePower);
 				driveTrain[3].setPower(0);
 				break;
 			case DOWN_LEFT:
-				driveTrain[0].setPower(-slidePower);
+				driveTrain[0].setPower(-Configuration.driveTrainSlidePower);
 				driveTrain[1].setPower(0);
 				driveTrain[2].setPower(0);
-				driveTrain[3].setPower(-slidePower);
+				driveTrain[3].setPower(-Configuration.driveTrainSlidePower);
 				break;
 			case UP:
 				for (DcMotor motor : driveTrain) {
-					motor.setPower(slidePower);
+					motor.setPower(Configuration.driveTrainSlidePower);
 				}
 				break;
 			case RIGHT:
-				driveTrain[0].setPower(slidePower);
-				driveTrain[1].setPower(-slidePower);
-				driveTrain[2].setPower(-slidePower);
-				driveTrain[3].setPower(slidePower);
+				driveTrain[0].setPower(Configuration.driveTrainSlidePower);
+				driveTrain[1].setPower(-Configuration.driveTrainSlidePower);
+				driveTrain[2].setPower(-Configuration.driveTrainSlidePower);
+				driveTrain[3].setPower(Configuration.driveTrainSlidePower);
 				break;
 			case DOWN:
 				for (DcMotor motor : driveTrain) {
-					motor.setPower(-slidePower);
+					motor.setPower(-Configuration.driveTrainSlidePower);
 				}
 				break;
 			case LEFT:
-				driveTrain[0].setPower(-slidePower);
-				driveTrain[1].setPower(slidePower);
-				driveTrain[2].setPower(slidePower);
-				driveTrain[3].setPower(-slidePower);
+				driveTrain[0].setPower(-Configuration.driveTrainSlidePower);
+				driveTrain[1].setPower(Configuration.driveTrainSlidePower);
+				driveTrain[2].setPower(Configuration.driveTrainSlidePower);
+				driveTrain[3].setPower(-Configuration.driveTrainSlidePower);
 				break;
 		}
 	}

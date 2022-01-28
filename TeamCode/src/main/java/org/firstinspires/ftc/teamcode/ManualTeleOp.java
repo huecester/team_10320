@@ -26,8 +26,7 @@ public class ManualTeleOp extends LinearOpMode {
 	private final DcMotor[] slide = { slideLeft, slideRight };
 
 	// Controllers
-	private DriverController driverController;
-	private OperatorController operatorController;
+	private Controller controller;
 
 	/*
 	TODO:
@@ -45,8 +44,7 @@ public class ManualTeleOp extends LinearOpMode {
 		configureDriveTrain();
 
 		// Initialize controllers
-		driverController = DriverController.getInstance(gamepad1, telemetry, driveTrain);
-		operatorController = OperatorController.getInstance(gamepad2, telemetry, slide, scoop);
+		controller = Controller.getInstance(gamepad1, telemetry, driveTrain, slide, scoop);
 
 		telemetry.addData("Status", "Initialized");
 		telemetry.update();
@@ -54,8 +52,7 @@ public class ManualTeleOp extends LinearOpMode {
 		waitForStart();
 
 		while (opModeIsActive()) {
-			driverController.tick();
-			operatorController.tick();
+			controller.tick();
 
 			//telemetry.addData("Wheels", "left (%.2f), right (%.2f)", 1, 1);
 			telemetry.update();
