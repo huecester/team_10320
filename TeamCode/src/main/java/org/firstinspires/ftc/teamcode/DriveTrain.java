@@ -41,13 +41,13 @@ public class DriveTrain {
 		parseController();
 
 		if (Math.abs(drivePower) >= Configuration.deadzone || Math.abs(turnPower) >= Configuration.deadzone) {
-			telemetry.addData("Driver Status", "Driving");
+			telemetry.addData("Drive Train", "Driving");
 			tankDrive();
 		} else if (dpadPressed) {
-			telemetry.addData("Driver Status", "Sliding");
+			telemetry.addData("Drive Train", "Sliding");
 			slide();
 		} else {
-			telemetry.addData("Driver Status", "Stopped");
+			telemetry.addData("Drive Train", "Stopped");
 			zero();
 		}
 	}

@@ -43,17 +43,17 @@ public class LinearSlide {
 	// Operating
 	private void slide() {
 		if (linearSlideDirection == LinearSlideDirection.UP) {
-			telemetry.addData("Linear Slide Status", "Up");
+			telemetry.addData("Slide", "Up");
 			for (DcMotor motor : slide) {
 				motor.setPower(Configuration.linearSlidePower);
 			}
 		} else if (linearSlideDirection == LinearSlideDirection.DOWN) {
-			telemetry.addData("Linear Slide Status", "Down");
+			telemetry.addData("Slide", "Down");
 			for (DcMotor motor : slide) {
 				motor.setPower(-Configuration.linearSlidePower);
 			}
 		} else {
-			telemetry.addData("Linear Slide Status", "Stopped");
+			telemetry.addData("Slide", "Stopped");
 			for (DcMotor motor : slide) {
 				motor.setPower(0);
 			}
