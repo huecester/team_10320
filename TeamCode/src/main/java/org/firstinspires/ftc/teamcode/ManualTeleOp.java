@@ -17,13 +17,13 @@ public class ManualTeleOp extends LinearOpMode {
 	private DcMotor backLeft;
 	private DcMotor frontRight;
 	private DcMotor backRight;
-	private final DcMotor[] driveTrain = { frontLeft, backLeft, frontRight, backRight };
+	private DcMotor[] driveTrain;
 
 	// Linear slide / scoop
 	private DcMotor slideLeft;
 	private DcMotor slideRight;
 	private DcMotor scoop;
-	private final DcMotor[] slide = { slideLeft, slideRight };
+	private DcMotor[] slide;
 
 	// Controllers
 	private Controller controller;
@@ -68,6 +68,9 @@ public class ManualTeleOp extends LinearOpMode {
 		slideLeft = getMotor("slideLeft");
 		slideRight = getMotor("slideRight");
 		scoop = getMotor("scoop");
+
+		driveTrain = new DcMotor[] { frontLeft, backLeft, frontRight, backRight };
+		slide = new DcMotor[] { slideLeft, slideRight };
 	}
 
 	private void configureDriveTrain() {
