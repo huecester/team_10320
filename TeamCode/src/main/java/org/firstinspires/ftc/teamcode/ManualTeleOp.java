@@ -78,10 +78,8 @@ public class ManualTeleOp extends LinearOpMode {
 
 	private void configureDriveTrain() {
 		// Invert motors where needed
-		frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-		backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-		backRight.setDirection(DcMotorSimple.Direction.REVERSE);
-		slideLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        backRight.setDirection(DcMotorSimple.Direction.REVERSE);
 		slideRight.setDirection(DcMotorSimple.Direction.REVERSE);
 
 		// Drive train to neutral on zero power

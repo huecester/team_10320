@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 	import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 	import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 	import com.qualcomm.robotcore.hardware.DcMotor;
+	import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @Autonomous
 public class SlideRight extends LinearOpMode {
@@ -15,15 +16,25 @@ public class SlideRight extends LinearOpMode {
 		DcMotor frontRight = hardwareMap.get(DcMotor.class, "frontRight");
 		DcMotor backRight = hardwareMap.get(DcMotor.class, "backRight");
 
+		frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+		backRight.setDirection(DcMotorSimple.Direction.REVERSE);
+
 		waitForStart();
 
 		if (opModeIsActive()) {
+			frontLeft.setPower(power);
+			backLeft.setPower(power);
+			frontRight.setPower(power);
+			backRight.setPower(power);
+
+			sleep(2500);
+
 			frontLeft.setPower(power);
 			backLeft.setPower(-power);
 			frontRight.setPower(-power);
 			backRight.setPower(power);
 
-			sleep(10000);
+			sleep(5500);
 
 			frontLeft.setPower(0);
 			backLeft.setPower(0);

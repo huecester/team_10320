@@ -136,7 +136,7 @@ public class DriveTrain {
 		slideUp = gamepad.dpad_up;
 		slideDown = gamepad.dpad_down;
 		slideLeft = gamepad.dpad_left;
-		slideRight = gamepad.right_bumper;
+		slideRight = gamepad.dpad_right;
 		dpadPressed = slideUp || slideDown || slideLeft || slideRight;
 	}
 
