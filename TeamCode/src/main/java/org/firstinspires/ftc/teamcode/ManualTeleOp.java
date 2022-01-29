@@ -51,6 +51,9 @@ public class ManualTeleOp extends LinearOpMode {
 
 		waitForStart();
 
+		telemetry.addData("Status", "Started");
+		telemetry.update();
+
 		while (opModeIsActive()) {
 			controller.tick();
 
@@ -76,6 +79,7 @@ public class ManualTeleOp extends LinearOpMode {
 	private void configureDriveTrain() {
 		// Invert motors where needed
 		frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+		slideLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
 		// Drive train to neutral on zero power
 		for (DcMotor motor : driveTrain) {
